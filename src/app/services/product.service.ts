@@ -59,8 +59,13 @@ export class ProductService {
 		);	
 	}
 
-	featured(): Observable<any> {
+	featured(): Observable<FeaturedProduct[]> {
+		const url = this.commonUrl;
 
+		return this.http.get<FeaturedProduct[]>(url, this.httpOptions).pipe(
+			tap(_ => this.log('Showing most featured')),
+			catchError(err => (of(`Error: ${err}`)))
+		);
 	}
 
 }
