@@ -124,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "tienda-colchones"
+    }
+  },
+  "defaultProject": "tienda-colchones",
+  "cli": {
+    "analytics": "54d0962b-b09f-4ac5-ab03-65f3f5244310"
+  }
 }
