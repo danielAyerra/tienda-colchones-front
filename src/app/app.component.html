@@ -1,14 +1,22 @@
 <nav>
   <ul>
-    <li>Inicio</li>
-    <li>Colchones</li>
-    <li>Somieres</li>
+    <li>
+      <a routerLink="/">Inicio</a>
+    </li>
+    <li> 
+      <a routerLink="/colchones">Colchones</a>
+    </li>
+    <li> 
+      <a routerLink="/somieres">Somieres</a>
+    </li>
+    <!--For now, bool for login-->
+    <li>
+      <a routerLink="/login">Login</a>
+    </li>
+    <!--Need for logout. Pending of JWT feature-->
+    <li>
+      <a href="#" (click)="logout()">
+    </li> 
   </ul>
-  <form>
-    <label for="user">Usuario</label>
-    <input type="text" id="user" placeholder="Usuario"/>
-    <label for="pass">Contraseña</label>
-    <input type="password" id="pass" placeholder="Contraseña"/>
-  </form>
 </nav>
 <router-outlet></router-outlet>
