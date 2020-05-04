@@ -9,6 +9,7 @@ import { BedBaseListComponent } from './product/bed-base-list/bed-base-list.comp
 import { MattressListComponent } from './product/mattress-list/mattress-list.component';
 import { DashboardComponent } from './web/dashboard/dashboard.component';
 import { PasswordComponent } from './user/password/password.component';
+import { LoginComponent } from './user/login/login.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { PasswordComponent } from './user/password/password.component';
     BedBaseListComponent,
     MattressListComponent,
     DashboardComponent,
-    PasswordComponent
+    PasswordComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

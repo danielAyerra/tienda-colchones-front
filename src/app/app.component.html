@@ -15,8 +15,11 @@
     </li>
     <!--Need for logout. Pending of JWT feature-->
     <li>
-      <a href="#" (click)="logout()">
+      <a (click)="logOut()">Logout</a>
     </li> 
   </ul>
 </nav>
+<header>
+  <h1>{{title}}</h1>
+</header>
 <router-outlet></router-outlet>
