@@ -1,4 +1,4 @@
-export interface featuredProduct {
+export interface FeaturedProduct {
 	id: string,
 	prize: number,
 	url: string,

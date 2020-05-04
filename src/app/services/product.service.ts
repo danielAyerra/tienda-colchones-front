@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../product/interfaces/product';
+import { FeaturedProduct } from '../product/interfaces/featured.product';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -19,8 +20,7 @@ export class ProductService {
   		headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 	};
 
-	deleteProduct(product: Product, type:string ): Observable<void> {
-		const id = product.id;
+	deleteProduct(id: string, type: string ): Observable<void> {
 		const url = `${this.commonUrl}/${type}/${id}`;
 
   		return this.http.delete<Product>(url, this.httpOptions).pipe(
@@ -33,7 +33,7 @@ export class ProductService {
 		const id = product.id;
 		const url = `${this.commonUrl}/${type}/${id}`;
 
-		return this.http.post<Product>(url, this.httpOptions).pipe(
+		return this.http.post<Product>(url, product, this.httpOptions).pipe(
 			tap(_ => this.log(`added ${type} id=${id}`)),
 			catchError(err => (of(`Error: ${err}`)))
 		);
@@ -44,7 +44,7 @@ export class ProductService {
 		const type = product.type;
 		const url = `${this.commonUrl}/${type}/${id}`;
 
-		return this.http.put<Product>(url, this.httpOptions).pipe(
+		return this.http.put<Product>(url, product, this.httpOptions).pipe(
 			tap(_ => this.log(`edited ${type} id=${id}`)),
 			catchError(err => (of(`Error: ${err}`)))
 		);
@@ -58,4 +58,9 @@ export class ProductService {
 			catchError(err => (of(`Error: ${err}`)))
 		);	
 	}
+
+	featured(): Observable<any> {
+
+	}
+
 }
