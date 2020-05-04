@@ -23,6 +23,7 @@ export class AppComponent {
   isAdmin: boolean = false;
   logOut(): void {
   	this.loggedIn=false;
+  	this.isAdmin=false;
   	console.log('log out');
   }
 }
