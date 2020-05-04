@@ -23,7 +23,7 @@ export class BedBaseListComponent implements OnInit {
   	{
   		id:'1234151SOM',
   		prize: 69.95,
-  		url: './images.jpg',
+  		url: 'app/product/bed-base-list/images.jpg',
   		description: 'Un somier sencillo y barato'
   	};
   	this.bedBaseList.push(bedBaseExample);

@@ -3,8 +3,9 @@
 	<li *ngFor="let mattress of mattressList">
 		<h4>{{mattress.id}}</h4>
 		<h5>{{mattress.prize}}€</h5>
-		<img src="bedBase.url" height="50" width="50" alt="Image not found"/>
+		<img src={{mattress.url}} height="50" width="50" alt="Image not found"/>
 		<p>{{mattress.description}}</p>
+		<label><a>X</a></label>
 	</li>
 </ul>
 <!--TODO: Pagination!-->

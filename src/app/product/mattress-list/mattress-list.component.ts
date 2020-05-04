@@ -23,7 +23,7 @@ export class MattressListComponent implements OnInit {
   	{
   		id:'1234151COL',
   		prize: 100.95,
-  		url: './images.jpg',
+  		url: 'app/product/matress-list/images.jpg',
   		description: 'Un colchón rompe espaldas'
   	};
   	this.mattressList.push(mattressExample);

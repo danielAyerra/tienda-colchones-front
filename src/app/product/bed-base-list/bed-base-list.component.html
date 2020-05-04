@@ -3,7 +3,7 @@
 	<li *ngFor="let bedBase of bedBaseList">
 		<h4>{{bedBase.id}}</h4>
 		<h5>{{bedBase.prize}}€</h5>
-		<img src="bedBase.url" height="50" width="50" alt="Image not found"/>
+		<img src={{bedBase.url}} height="50" width="50" alt="Image not found"/>
 		<p>{{bedBase.description}}</p>
 	</li>
 </ul>
