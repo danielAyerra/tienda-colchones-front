@@ -1,1 +1,10 @@
-<p>mattress-list works!</p>
+<h2>Colchones</h2>
+<ul>
+	<li *ngFor="let mattress of mattressList">
+		<h4>{{mattress.id}}</h4>
+		<h5>{{mattress.prize}}€</h5>
+		<img src="bedBase.url" height="50" width="50" alt="Image not found"/>
+		<p>{{mattress.description}}</p>
+	</li>
+</ul>
+<!--TODO: Pagination!-->
