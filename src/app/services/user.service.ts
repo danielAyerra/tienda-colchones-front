@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,26 +10,36 @@ import { environment } from '../../../environments/environment';
 
 export class UserService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+    ) { }
 
+  private baseUrl = environment.apiUrl;
 
-  login (user: string, pass: string) Observable<boolean> {
-  	return this.http.post<boolean>(url, this.httpOptions).pipe(
-			tap(message => this.log(`Login done: ${message}`)),
+  httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
+  login (user: string, pass: string): Observable<any> {
+    const url = `${this.baseUrl}/login`;
+  	return this.http.post<any>(url, this.httpOptions).pipe(
+			tap(message => console.log(`Login done: ${message}`)),
 			catchError(err => (of(`Error: ${err}`)))
 		);
   }
 
-  checkAdmin (user: string) Observable<boolean> {
-  	return this.http.post<boolean>(url, this.httpOptions).pipe(
-			tap(message => this.log(`Login done: ${message}`)),
+  checkAdmin (user: string): Observable<any> {
+    const url = `${this.baseUrl}/checkAdmin`;
+  	return this.http.post<any>(url, this.httpOptions).pipe(
+			tap(message => console.log(`User exist: ${message}`)),
 			catchError(err => (of(`Error: ${err}`)))
 		);
   }
 
-  changePass (pass: string, newPass: string) Observable<void> {
-  	return this.http.put<void>(url, this.httpOptions).pipe(
-  			tap(_ => this.log(`Succesfully changed password`)),
+  changePass (pass: string, newPass: string): Observable<any> {
+    const url = `${this.baseUrl}/pass`;
+  	return this.http.put<any>(url, this.httpOptions).pipe(
+  			tap(_ => console.log(`Succesfully changed password`)),
   			catchError(err => (of(`Error: ${err}`)))
 		);
   }
