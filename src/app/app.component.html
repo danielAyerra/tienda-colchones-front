@@ -1,25 +1,28 @@
 <nav>
-  <ul>
-    <li>
-      <a routerLink="/">Inicio</a>
+  <ul class="sideul">
+    <li class="sideli">
+      <a class="sidea" routerLink="/">Inicio</a>
     </li>
-    <li> 
-      <a routerLink="/colchones">Colchones</a>
+    <li class="sideli"> 
+      <a class="sidea" routerLink="/colchones">Colchones</a>
     </li>
-    <li> 
-      <a routerLink="/somieres">Somieres</a>
+    <li class="sideli"> 
+      <a class="sidea" routerLink="/somieres">Somieres</a>
     </li>
     <!--For now, bool for login-->
-    <li>
-      <a routerLink="/login">Login</a>
+    <li class="sideli">
+      <a class="sidea" routerLink="/login">Login</a>
     </li>
     <!--Need for logout. Pending of JWT feature-->
-    <li>
-      <a (click)="logOut()">Logout</a>
+    <li class="sideli">
+      <a class="sidea" (click)="logOut()">Logout</a>
     </li> 
   </ul>
 </nav>
 <header>
   <h1>{{title}}</h1>
+  <label>Expertos en tu descanso</label>
 </header>
-<router-outlet></router-outlet>
+<main class="fluffy">
+  <router-outlet></router-outlet>
+</main>

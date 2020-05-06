@@ -1,0 +1,103 @@
+@font-face {
+  font-family: KameFree;
+  src: url(/assets/fonts/KameFree.ttf);
+}
+
+@font-face {
+  font-family: Kiona;
+  src: url(/assets/fonts/Kiona-Regular.ttf);
+}
+
+nav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 180px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #D8D8D8; 
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px; /*Align with title*/ 
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-right-color: black;
+
+}
+
+/* Remove list bullets, align the content left and give border*/
+
+.sideul {
+  list-style-type: none;
+  border:1px;
+  margin:0;
+  padding:0;
+  padding-top: 35px;
+  text-align:start;
+}
+
+/* All the navigation list elements must have the same size */
+.sideli {
+  margin: 2px;
+  padding-top:7px;
+  padding-bottom: 7px;
+}
+/* The navigation menu links */
+.sidea {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 17pt;
+  font-family: Kiona;
+  color: #818181;
+  display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidea:hover {
+  color: #FF0080;
+}
+
+/* Style of the content */
+.fluffy {
+  border: 0;
+  margin: 0 0 0 180px; /* Same as the width of the sidebar */
+  padding: 0 0 100% 15px;
+}
+
+.fluffy::after {
+  /* Add a feather to the view */
+  background:  url('/assets/img/feather.jpg') no-repeat;
+    background-position: 100% 100%; 
+    opacity: 0.5;
+}
+
+h1{
+  font-family: KameFree;
+  font-size: 60pt;
+  color: #FAFAFA;
+  margin-bottom: 2px;
+  padding-bottom: 0;
+}
+
+header {
+  background-color: #A4A4A4;
+  padding: 10px 0 10px 50px;
+  margin: 0 0 0 180px;
+  border-style: none; 
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: black;
+  text-align: start;
+}
+
+header label {
+  font-family: Kiona;
+  font-size: 20pt;
+  color:#FAFAFA;
+  padding-left:10px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  nav {padding-top: 15px;}
+  .sidea {font-size: 18px;}
+}

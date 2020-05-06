@@ -1,10 +1,16 @@
-<h2>Somieres</h2>
+<div class="title">
+	<h2>Somieres</h2>
+</div>
 <ul>
-	<li *ngFor="let bedBase of bedBaseList">
-		<h4>{{bedBase.id}}</h4>
-		<h5>{{bedBase.prize}}€</h5>
-		<img src={{bedBase.url}} height="50" width="50" alt="Image not found"/>
-		<p>{{bedBase.description}}</p>
+	<li *ngFor="let p of bedBaseList">
+		<div class="imgDiv">
+			<img src="assets/img/feather.jpg" height="200" width="200" alt="Image not found"/>
+		</div>
+		<div class="contentDiv">
+			<h4>{{p.id}}</h4>
+			<h5>{{p.prize}}€</h5>
+			<p>{{p.description}}</p>
+		</div>
 	</li>
 </ul>
 <!--TODO: Pagination!-->

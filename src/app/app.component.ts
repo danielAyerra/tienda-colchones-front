@@ -18,7 +18,7 @@ import { Component } from '@angular/core';
  */
 
 export class AppComponent {
-  title = 'Colchones Weinman';
+  title = 'Weinman';
   loggedIn: boolean;
   isAdmin: boolean = false;
   logOut(): void {

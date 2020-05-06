@@ -1,1 +1,20 @@
-<p>dashboard works!</p>
+<div class="title">
+	<h2>Lo más especial</h2>
+</div>
+<ul>
+	<li *ngFor="let p of prodList">
+		<div class="imgDiv">
+			<img src="assets/img/feather.jpg" height="200" width="200" alt="Image not found"/>
+		</div>
+		<div class="contentDiv">
+			<h4>{{p.id}}</h4>
+			<h5>{{p.prize}}€</h5>
+			<h5 *ngIf="p.type==='BedBase'; else mattressBlock">Somier</h5>
+			<p>{{p.description}}</p>
+		</div>
+	</li>
+</ul>
+
+<ng-template #mattressBlock>
+	<h5>Colchón</h5>
+</ng-template>
