@@ -19,7 +19,7 @@ export class ProductService {
   	private commonUrl = environment.apiUrl;
 
 	httpOptions = {
-  		headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  		headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*'})
 	};
 
 	deleteProduct(id: string, type: string ): Observable<any> {
@@ -60,11 +60,19 @@ export class ProductService {
 		);	
 	}
 
+	getProduct(type:string, id:string): Observable<any> {
+		const url = `${this.commonUrl}/${type}/${id}`;
+		return this.http.get<any>(url, this.httpOptions).pipe(
+			tap(_ => console.log(`Element ${id} of ${type}`)),
+			catchError(err => (of(`Error: ${err}`)))
+		);	
+	}
+
 	featured(): Observable<any> {
-		const url = this.commonUrl;
+		const url = `${this.commonUrl}/dashboard`;
 
 		return this.http.get<any>(url, this.httpOptions).pipe(
-			tap(_ => console.log('Showing most featured')),
+			tap(val => {console.log('Showing most featured'); console.log(val);}),
 			catchError(err => (of(`Error: ${err}`)))
 		);
 	}

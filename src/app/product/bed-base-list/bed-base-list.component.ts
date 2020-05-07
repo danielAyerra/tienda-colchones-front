@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../interfaces/product';
+import { ProductService } from '../../services/product.service';
+
 
 @Component({
   selector: 'app-bed-base-list',
@@ -13,12 +15,15 @@ import { Product } from '../interfaces/product';
  *				Pagination
  */
 export class BedBaseListComponent implements OnInit {
+  constructor( private productService: ProductService ) { }
+
   bedBaseList: Product[] = [];
 
   constructor() { }
 
   ngOnInit() {
   	//TODO: Call the Service
+    this.getList('Mattress');
   	const bedBaseExample: Product = 
   	{
   		id:'1234151SOM',
@@ -29,4 +34,14 @@ export class BedBaseListComponent implements OnInit {
   	this.bedBaseList.push(bedBaseExample);
   }
 
+  getList(type:string){
+    this.productService.listProduct(type).subscribe(
+      (value) => {
+        console.log(value);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../interfaces/product';
+import { ProductService } from '../../services/product.service';
+
 
 @Component({
   selector: 'app-mattress-list',
@@ -10,15 +12,16 @@ import { Product } from '../interfaces/product';
 /**
  *@title: 		MatressList 
  *@dev: 		Delete demo and call the service.
- *				Pagination
+ *				  Pagination
  */
 export class MattressListComponent implements OnInit {
   mattressList: Product[] = [];
 
-  constructor() { }
+  constructor(productService: ProductService) { }
 
   ngOnInit() {
   	//TODO: Call the Service
+    this.getList('BedBase');
   	const mattressExample: Product = 
   	{
   		id:'1234151COL',
@@ -27,6 +30,17 @@ export class MattressListComponent implements OnInit {
   		description: 'Un colchón rompe espaldas'
   	};
   	this.mattressList.push(mattressExample);
+  }
+
+  getList(type:string){
+    this.productService.listProduct(type).subscribe(
+      (value) => {
+        console.log(value);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
 }
