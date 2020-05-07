@@ -16,6 +16,8 @@ import { ActivatedRoute } from '@angular/router';
  */
 export class BedBaseComponent implements OnInit {
 
+  bedBase: Product;
+
   constructor(private productService: ProductService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -27,7 +29,13 @@ export class BedBaseComponent implements OnInit {
   getProduct(type: string, id: string){
   	this.productService.getProduct(type, id).subscribe(
   		(value) => {
-  			console.log(value);
+         console.log(value);
+  			 this.bedBase = {
+          id: value.id,
+          prize: value.prize,
+          url: value.img,
+          description: value.description
+        }
   		},
   		(err) => {
   			console.log(err);

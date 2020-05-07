@@ -1,1 +1,10 @@
-<h2>Consulta log</h2>
+<div *ngIf="bedBase; else notFound">
+	<h2>{{bedBase.id}}</h2>
+	<!--TODO: src-data descargada de MOngo-->
+	<img src="/assets/img/feather.jpg" width="500" height="500">
+	<span>{{bedBase.prize}}</span>
+	<p>{{bedBase.description}}</p>
+</div>
+<ng-template #notFound>
+	<span class="notFound">No existe el producto consultado.</span>
+</ng-template>
