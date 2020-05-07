@@ -17,7 +17,7 @@ import { ProductService } from '../../services/product.service';
 export class MattressListComponent implements OnInit {
   mattressList: Product[] = [];
 
-  constructor(productService: ProductService) { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit() {
   	//TODO: Call the Service

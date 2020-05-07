@@ -19,8 +19,6 @@ export class BedBaseListComponent implements OnInit {
 
   bedBaseList: Product[] = [];
 
-  constructor() { }
-
   ngOnInit() {
   	//TODO: Call the Service
     this.getList('Mattress');
