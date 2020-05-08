@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../interfaces/product';
 import { ProductService } from '../../services/product.service';
+import { Route } from '@angular/router';
 
 
 @Component({
@@ -21,26 +22,44 @@ export class MattressListComponent implements OnInit {
 
   ngOnInit() {
   	//TODO: Call the Service
-    this.getList('BedBase');
-  	const mattressExample: Product = 
-  	{
-  		id:'1234151COL',
-  		prize: 100.95,
-  		url: 'app/product/matress-list/images.jpg',
-  		description: 'Un colchón rompe espaldas'
-  	};
-  	this.mattressList.push(mattressExample);
+    this.getList('Mattress');
   }
 
   getList(type:string){
     this.productService.listProduct(type).subscribe(
       (value) => {
-        console.log(value);
+        const response = value.body;
+        if(Array.isArray(response)&&Array.length>0){
+          for(let resP of response){
+            const iProduct: Product = {
+              description: resP.description.toString(),
+              id: resP.id.toString(),
+              img: resP.img.toString(),
+              prize: +resP.prize,
+            }
+            this.mattressList.push(iProduct);
+          }
+        }
       },
       (err) => {
         console.log(err);
       }
     );
+  }
+
+  deleteElement(id: string){
+    this.productService.deleteProduct('Mattress', id).subscribe(
+      (ok) => {
+        console.log(ok);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  viewProduct(type:string, id:string){
+
   }
 
 }

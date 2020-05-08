@@ -23,12 +23,11 @@ export class MattressComponent implements OnInit {
   getProduct(type: string, id: string){
   	this.productService.getProduct(type, id).subscribe(
   		(value) => {
-  			console.log(value);
         this.mattress = {
-          id: value.id,
-          prize: value.prize,
-          url: value.img,
-          description: value.description
+          id: value.body.id,
+          prize: value.body.prize,
+          img: value.body.img,
+          description: value.body.description
         }
   		},
   		(err) => {

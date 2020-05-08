@@ -21,25 +21,32 @@ export class BedBaseListComponent implements OnInit {
 
   ngOnInit() {
   	//TODO: Call the Service
-    this.getList('Mattress');
-  	const bedBaseExample: Product = 
-  	{
-  		id:'1234151SOM',
-  		prize: 69.95,
-  		url: 'app/product/bed-base-list/images.jpg',
-  		description: 'Un somier sencillo y barato'
-  	};
-  	this.bedBaseList.push(bedBaseExample);
+    this.getList('BedBase');
   }
 
-  getList(type:string){
+  getList(type:string) {
     this.productService.listProduct(type).subscribe(
       (value) => {
-        console.log(value);
+        const response = value.body;
+        if(Array.isArray(response)&&Array.length>0){
+          for(let resP of response){
+            const iProduct = {
+              description: resP.description,
+              id: resP.id,
+              img: resP.img,
+              prize: resP.prize,
+            }
+            this.bedBaseList.push(iProduct);
+          }
+        }
       },
       (err) => {
         console.log(err);
       }
     );
+  }
+
+  deleteElement(){
+
   }
 }
