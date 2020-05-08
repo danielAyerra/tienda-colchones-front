@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as Cookie from 'js-cookie';
 
 @Component({
   selector: 'app-root',
@@ -18,12 +19,9 @@ import { Component } from '@angular/core';
  */
 
 export class AppComponent {
+  constructor(){}
   title = 'Weinman';
-  loggedIn: boolean;
-  isAdmin: boolean = false;
   logOut(): void {
-  	this.loggedIn=false;
-  	this.isAdmin=false;
-  	console.log('log out');
+    Cookie.remove('Authorization');
   }
 }

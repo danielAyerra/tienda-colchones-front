@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Validators } from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
+
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
   constructor(
   	private userService: UserService,
   	private fb: FormBuilder,
-  	private cookieService: CookieService
   	) { }
 
   ngOnInit() {

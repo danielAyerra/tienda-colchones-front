@@ -30,7 +30,9 @@
             "styles": [
               "src/styles.less"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/js-cookie/src/js.cookie.js"
+            ]
           },
           "configurations": {
             "production": {
