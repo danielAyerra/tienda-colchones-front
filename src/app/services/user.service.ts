@@ -17,13 +17,17 @@ export class UserService {
   private baseUrl = environment.apiUrl;
 
   httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*', 
+        'Access-Control-Allow-Credentials': 'true', 'Access-Control-Expose-Headers':'true'}),
+      withCredentials: true,
+      observe: 'response' as 'response'
   };
 
   login (user: string, pass: string): Observable<any> {
     const url = `${this.baseUrl}/login`;
-  	return this.http.post<any>(url, this.httpOptions).pipe(
-			tap(message => console.log(`Login done: ${message}`)),
+    const userInfo = {user: user, pass: pass};
+  	return this.http.post<any>(url, userInfo, this.httpOptions).pipe(
+			tap(message => console.log("Login done:")),
 			catchError(err => (of(`Error: ${err}`)))
 		);
   }

@@ -18,9 +18,14 @@ export class ProductService {
 
   	private commonUrl = environment.apiUrl;
 
-	httpOptions = {
-  		headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*'})
-	};
+  	//INSECURE. Node server should be giving these header values ONLY if client is in an allowed domain.
+  	//Fixed!
+	  httpOptions = {
+	      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*', 
+	        'Access-Control-Allow-Credentials': 'true', 'Access-Control-Expose-Headers':'true'}),
+	      withCredentials: true,
+	      observe: 'response' as 'response'
+	  };
 
 	deleteProduct(id: string, type: string ): Observable<any> {
 		const url = `${this.commonUrl}/${type}/${id}`;
@@ -35,7 +40,7 @@ export class ProductService {
 		const id = product.id;
 		const url = `${this.commonUrl}/${type}/${id}`;
 
-		return this.http.post<any>(url, JSON.stringify(product), this.httpOptions).pipe(
+		return this.http.post<any>(url, JSON.stringify({product:product}), this.httpOptions).pipe(
 			tap(_ => console.log(`added ${type} id=${id}`)),
 			catchError(err => (of(`Error: ${err}`)))
 		);
