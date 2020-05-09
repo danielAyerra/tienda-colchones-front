@@ -40,7 +40,7 @@ export class ProductService {
 		const id = product.id;
 		const url = `${this.commonUrl}/${type}/${id}`;
 
-		return this.http.post<any>(url, JSON.stringify({product:product}), this.httpOptions).pipe(
+		return this.http.post<any>(url, {product: product}, this.httpOptions).pipe(
 			tap(_ => console.log(`added ${type} id=${id}`)),
 			catchError(err => (of(`Error: ${err}`)))
 		);
@@ -50,7 +50,7 @@ export class ProductService {
 		const id = product.id;
 		const url = `${this.commonUrl}/${type}/${id}`;
 
-		return this.http.put<any>(url, JSON.stringify(product), this.httpOptions).pipe(
+		return this.http.put<any>(url, {product: product}, this.httpOptions).pipe(
 			tap(_ => console.log(`edited ${type} id=${id}`)),
 			catchError(err => (of(`Error: ${err}`)))
 		);

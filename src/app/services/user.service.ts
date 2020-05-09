@@ -32,10 +32,10 @@ export class UserService {
 		);
   }
 
-  checkAdmin (user: string): Observable<any> {
+  checkAdmin (): Observable<any> {
     const url = `${this.baseUrl}/checkAdmin`;
-  	return this.http.post<any>(url, this.httpOptions).pipe(
-			tap(message => console.log(`User exist: ${message}`)),
+  	return this.http.get<any>(url, this.httpOptions).pipe(
+			tap(message => console.log(message)),
 			catchError(err => (of(`Error: ${err}`)))
 		);
   }
