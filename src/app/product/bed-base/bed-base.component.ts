@@ -44,7 +44,7 @@ export class BedBaseComponent implements OnInit {
 	);
   }
 
- /* editProduct(){
+  editProduct(){
     this.productService.editProduct(this.bedBase, 'BedBase').subscribe(
       (val)=>{
         console.log(val);
@@ -53,7 +53,7 @@ export class BedBaseComponent implements OnInit {
         console.log(err);
       }
     );
-  }*/
+  }
 
   deleteProduct(){
     this.productService.deleteProduct(this.bedBase.id, 'BedBase').subscribe(

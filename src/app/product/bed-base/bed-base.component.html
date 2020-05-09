@@ -1,12 +1,12 @@
 <div *ngIf="bedBase; else notFound">
 	<h2>{{bedBase.id}}</h2>
 	<!--TODO: src-data descargada de MOngo-->
-	<img src="/assets/img/feather.jpg" width="500" height="500">
+	<img src="{{bedBase.img}}" width="500" height="500">
 	<span>{{bedBase.prize}}</span>
 	<p>{{bedBase.description}}</p>
 </div>
 <div>
-	<!--<button click()="editProduct()">Editar</button>-->
+	<button (click)="editProduct()">Editar</button>
 	<button (click)="deleteProduct()">Eliminar</button>
 </div>
 <ng-template #notFound>

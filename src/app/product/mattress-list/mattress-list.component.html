@@ -4,7 +4,7 @@
 <ul>
 	<li *ngFor="let p of mattressList">
 		<div class="imgDiv">
-			<img src="assets/img/feather.jpg" height="200" width="200" alt="Image not found"/>
+			<img src="{{p.img}}" height="200" width="200" alt="Image not found"/>
 		</div>
 		<div class="contentDiv">
 			<a routerLink="/colchones/{{p.id}}"><h4>{{p.id}}</h4></a>

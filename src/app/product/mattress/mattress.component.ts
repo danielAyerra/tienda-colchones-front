@@ -38,6 +38,17 @@ export class MattressComponent implements OnInit {
 	  );
   }
 
+  editProduct(){
+    this.productService.editProduct(this.mattress, 'Mattress').subscribe(
+      (val)=>{
+        console.log(val);
+      },
+      (err)=>{
+        console.log(err);
+      }
+    );
+  }
+
   deleteProduct(){
     this.productService.deleteProduct(this.mattress.id, 'Mattress').subscribe(
       (ok) => {

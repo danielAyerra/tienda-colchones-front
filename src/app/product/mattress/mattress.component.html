@@ -1,12 +1,12 @@
 <div *ngIf="mattress; else notFound">
 	<h2>{{mattress.id}}</h2>
 	<!--TODO: src-data descargada de Mongo-->
-	<img src="/assets/img/feather.jpg" width="500" height="500">
+	<img src="{{mattress.img}}" alt="No image found" width="500" height="500">
 	<span>{{mattress.prize}}</span>
 	<p>{{mattress.description}}</p>
 </div>
 <div>
-	<!--<button click()="editProduct()">Editar</button>-->
+	<button (click)="editProduct()">Editar</button>
 	<button (click)="deleteProduct()">Eliminar</button>
 </div>
 <ng-template #notFound>
