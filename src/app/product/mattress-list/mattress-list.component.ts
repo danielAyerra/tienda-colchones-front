@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../interfaces/product';
 import { ProductService } from '../../services/product.service';
-import { Route } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,7 +18,8 @@ import { Route } from '@angular/router';
 export class MattressListComponent implements OnInit {
   mattressList: Product[] = [];
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+              private router: Router) { }
 
   ngOnInit() {
   	//TODO: Call the Service
@@ -48,18 +49,18 @@ export class MattressListComponent implements OnInit {
   }
 
   deleteElement(id: string){
-    this.productService.deleteProduct('Mattress', id).subscribe(
+    this.productService.deleteProduct(id,'Mattress').subscribe(
       (ok) => {
         console.log(ok);
+        this.router.navigateByUrl('/', { skipLocationChange: true })
+        .then(() => {
+          this.router.navigate(['colchones']);
+        }); 
       },
       (err) => {
-        console.log(err);
+        console.log(err.error);
       }
     );
-  }
-
-  viewProduct(type:string, id:string){
-
   }
 
 }

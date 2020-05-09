@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../interfaces/product';
 import { ProductService } from '../../services/product.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-bed-base',
@@ -18,7 +18,9 @@ export class BedBaseComponent implements OnInit {
 
   bedBase: Product;
 
-  constructor(private productService: ProductService, private route: ActivatedRoute) { }
+  constructor(private productService: ProductService, 
+    private route: ActivatedRoute, 
+    private router: Router) { }
 
   ngOnInit() {
   	const type = "BedBase";
@@ -40,6 +42,29 @@ export class BedBaseComponent implements OnInit {
   			console.log(err);
   		}
 	);
+  }
+
+ /* editProduct(){
+    this.productService.editProduct(this.bedBase, 'BedBase').subscribe(
+      (val)=>{
+        console.log(val);
+      },
+      (err)=>{
+        console.log(err);
+      }
+    );
+  }*/
+
+  deleteProduct(){
+    this.productService.deleteProduct(this.bedBase.id, 'BedBase').subscribe(
+      (ok) => {
+        console.log(ok);
+        this.router.navigate(['somieres']);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
 }

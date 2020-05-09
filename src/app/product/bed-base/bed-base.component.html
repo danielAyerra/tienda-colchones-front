@@ -5,6 +5,10 @@
 	<span>{{bedBase.prize}}</span>
 	<p>{{bedBase.description}}</p>
 </div>
+<div>
+	<!--<button click()="editProduct()">Editar</button>-->
+	<button (click)="deleteProduct()">Eliminar</button>
+</div>
 <ng-template #notFound>
 	<span class="notFound">No existe el producto consultado.</span>
 </ng-template>

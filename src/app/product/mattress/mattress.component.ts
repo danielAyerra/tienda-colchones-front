@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../interfaces/product';
 import { ProductService } from '../../services/product.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-mattress',
@@ -10,7 +10,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MattressComponent implements OnInit {
 
-  constructor(private productService: ProductService, private route: ActivatedRoute) { }
+  constructor(private productService: ProductService, 
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   mattress: Product;
 
@@ -33,6 +35,18 @@ export class MattressComponent implements OnInit {
   		(err) => {
   			console.log(err);
   		}
-	);
+	  );
+  }
+
+  deleteProduct(){
+    this.productService.deleteProduct(this.mattress.id, 'Mattress').subscribe(
+      (ok) => {
+        console.log(ok);
+        this.router.navigate(['colchones']);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }

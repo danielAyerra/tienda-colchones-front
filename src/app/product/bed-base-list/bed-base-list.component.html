@@ -9,8 +9,8 @@
 		<div class="contentDiv">
 			<a routerLink="/somieres/{{p.id}}"><h4>{{p.id}}</h4></a>
 			<h5>{{p.prize}}€</h5>
-			<p>{{p.description}}</p>
 		</div>
+		<button (click)="deleteElement(p.id)">Eliminar</button>
 	</li>
 </ul>
 <!--TODO: Pagination!-->

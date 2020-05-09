@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../interfaces/product';
 import { ProductService } from '../../services/product.service';
-
+import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bed-base-list',
@@ -15,13 +16,19 @@ import { ProductService } from '../../services/product.service';
  *				Pagination
  */
 export class BedBaseListComponent implements OnInit {
-  constructor( private productService: ProductService ) { }
+  isAdmin:boolean
+
+  constructor( private productService: ProductService,
+               private userService: UserService,
+               private router: Router ) { }
 
   bedBaseList: Product[] = [];
 
   ngOnInit() {
   	//TODO: Call the Service
+    this.checkAdmin();
     this.getList('BedBase');
+    
   }
 
   getList(type:string) {
@@ -46,7 +53,26 @@ export class BedBaseListComponent implements OnInit {
     );
   }
 
-  deleteElement(){
-
+  deleteElement(id: string){
+    this.productService.deleteProduct(id, 'BedBase').subscribe(
+      (ok) => {
+        console.log(ok);
+        this.router.navigateByUrl('/', { skipLocationChange: true })
+        .then(() => {
+          this.router.navigate(['somieres']);
+        }); 
+      },
+      (err) => {
+        console.log(err.error);
+      }
+    );
   }
+  checkAdmin(){
+    this.userService.checkAdmin().subscribe(
+      (val) => console.log(val),
+      (err) => console.log(err)
+    );
+  }
+
+
 }
