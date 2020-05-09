@@ -3,6 +3,9 @@ import { Product } from '../interfaces/product';
 import { ProductService } from '../../services/product.service';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-bed-base-list',
@@ -16,13 +19,23 @@ import { Router } from '@angular/router';
  *				Pagination
  */
 export class BedBaseListComponent implements OnInit {
-  isAdmin:boolean
+  isAdmin:boolean;
 
   constructor( private productService: ProductService,
                private userService: UserService,
-               private router: Router ) { }
+               private router: Router,
+               private fb: FormBuilder) { }
 
   bedBaseList: Product[] = [];
+
+  imgUpload: File = null;
+
+  productForm = this.fb.group({
+    id: ['', Validators.required],
+    prize: ['', Validators.min(0.01)],
+    img: [null],
+    description: ['',Validators.required]
+  });
 
   ngOnInit() {
   	//TODO: Call the Service
@@ -74,5 +87,53 @@ export class BedBaseListComponent implements OnInit {
     );
   }
 
+  addElement(){
+    const id = this.productForm.value.id;
+    const prize = this.productForm.value.prize;
+    const description = this.productForm.value.description;
+    if(this.imgUpload !== undefined || this.imgUpload !== null && typeof(this.imgUpload)==='string'){
+      const p = {
+        id: id,
+        prize: prize,
+        description: description,
+        img: this.imgUpload.toString()
+      }
+      console.log(p);
+      this.productService.addProduct(p,'BedBase').subscribe(
+        (val)=>{
+          console.log(val);
+        },
+        (err)=>{
+          console.log(err);
+        });
+    }
+    else{
+      console.log('Pic is missing');
+    }
+  }
+
+  async onFileChange(event: FileList) {
+    if(event){
+      const item: any = await this.readUploadedFileAsBase64(event.item(0));
+      console.log(item);
+      this.imgUpload=item.valueOf();
+      console.log(this.imgUpload);
+    }
+  }
+
+  private readUploadedFileAsBase64 = (inputFile) => {
+    const temporaryFileReader = new FileReader();
+    return new Promise((resolve, reject) => {
+      temporaryFileReader.onerror = () => {
+        temporaryFileReader.abort();
+        reject(new DOMException("Problem parsing input file."));
+      };
+
+      temporaryFileReader.onload = () => {
+        resolve(temporaryFileReader.result);
+      };
+      temporaryFileReader.readAsDataURL(inputFile);
+    });
+  };
 
 }

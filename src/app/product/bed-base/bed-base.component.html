@@ -5,6 +5,12 @@
 	<span>{{bedBase.prize}}</span>
 	<p>{{bedBase.description}}</p>
 </div>
+
+<div *ngIf="bedBase">
+	<input type="text" [(ngModel)]=bedBase.id>
+	<input type="text" [(ngModel)]=bedBase.prize>
+	<textarea rows="10" cols="50" [(ngModel)]=bedBase.description></textarea>
+</div>
 <div>
 	<button (click)="editProduct()">Editar</button>
 	<button (click)="deleteProduct()">Eliminar</button>

@@ -13,4 +13,19 @@
 		<button (click)="deleteElement(p.id)">Eliminar</button>
 	</li>
 </ul>
-<!--TODO: Pagination!-->
+
+<form [formGroup]="productForm" (ngSubmit)=addElement()>
+	<label>Id: 
+		<input type="text" formControlName="id">
+	</label>
+	<label>Precio: 
+		<input type="number" formControlName="prize">
+	</label>
+	<label>Descripción: 
+		<input type="text" formControlName="description">
+	</label>
+	<label>Imagen: 
+		<input type="file" accept="image/png, image/jpeg" (change)="onFileChange($event.target.files)" required>
+	</label>
+	<button type="submit" [disabled]="!productForm.valid" class="sButton" (click)="addElement()">Añadir</button>
+</form>
