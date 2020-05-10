@@ -1,7 +1,7 @@
 <div class="title">
 	<h2>Somieres</h2>
 </div>
-<ul>
+<!--<ul>
 	<li *ngFor="let p of bedBaseList">
 		<div class="imgDiv">
 			<img src="{{p.img}}" height="200" width="200" alt="Image not found"/>
@@ -10,22 +10,43 @@
 			<a routerLink="/somieres/{{p.id}}"><h4>{{p.id}}</h4></a>
 			<h5>{{p.prize}}€</h5>
 		</div>
-		<button (click)="deleteElement(p.id)">Eliminar</button>
+		<button *ngIf="isAdmin" id="delBtn" (click)="deleteElement(p.id)">Eliminar</button>
 	</li>
-</ul>
-<form [formGroup]="productForm" (ngSubmit)=addElement()>
-	<label>Id: 
-		<input type="text" formControlName="id">
-	</label>
-	<label>Precio: 
-		<input type="number" formControlName="prize">
-	</label>
-	<label>Descripción: 
-		<input type="text" formControlName="description">
-	</label>
-	<label>Imagen: 
-		<input type="file" accept="image/png, image/jpeg" (change)="onFileChange($event.target.files)" required>
-	</label>
-	<button type="submit" [disabled]="!productForm.valid" class="sButton" (click)="addElement()">Añadir</button>
-</form>
+</ul>-->
+
+ <table>
+     <tr *ngFor="let p of bedBaseList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+       <td>
+   			<div class="imgDiv">
+				<img src="{{p.img}}" height="200" width="200" alt="Image not found"/>
+			</div>
+			<div class="contentDiv">
+				<a routerLink="/somieres/{{p.id}}"><h4>{{p.id}}</h4></a>
+				<h5>{{p.prize}}€</h5>
+			</div>
+			<button *ngIf="isAdmin" class="delBtn" (click)="deleteElement(p.id)">Eliminar</button>
+       </td>
+     </tr>
+  </table>
+  <ngb-pagination [collectionSize]="bedBaseList.length" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true">
+  </ngb-pagination>
+
+<div *ngIf="isAdmin">
+	<form [formGroup]="productForm" (ngSubmit)=addElement()>
+		<h2>Añadir Elemento</h2>
+		<label>Id: 
+			<input type="text" formControlName="id">
+		</label>
+		<label>Precio: 
+			<input type="number" formControlName="prize">
+		</label>
+		<label>Descripción: 
+			<input type="text" formControlName="description">
+		</label>
+		<label>Imagen: 
+			<input type="file" accept="image/png, image/jpeg" (change)="onFileChange($event.target.files)" required>
+		</label>
+		<button type="submit" [disabled]="!productForm.valid" class="sButton" (click)="addElement()">Añadir</button>
+	</form>
+</div>
 <!--TODO: Pagination!-->

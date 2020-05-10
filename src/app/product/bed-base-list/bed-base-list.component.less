@@ -10,14 +10,20 @@
 
 @font-face {
   font-family: Kiona;
-  src: url(/assets/fonts/Kiona.ttf);
+  src: url(/assets/fonts/Kiona-Regular.ttf);
 }
-.title {
+.title, form {
   font-family: KameFree;
   font-size: 15pt;
   text-align:start;
   font-weight:normal;
   padding-left: 35px;
+}
+
+input, file {
+	display: block;
+	margin: 5px;
+	font-family: Folks-Normal;
 }
 
 h4,h5 {
@@ -26,9 +32,22 @@ h4,h5 {
 p {
 	font-family: Folks-Normal;
 }
-ul {
-  list-style-type: none;
-  display: block;
+
+table{
+	width:90%;
+}
+tr {
+	display: block;
+	width:90%;
+}
+
+td{
+	display:flex;
+	align-items: strech;
+	margin-bottom: 20px;
+	width:95%;
+	height: 200px;
+	background-color: #F5F6CE;
 }
 
 .imgDiv{
@@ -49,11 +68,18 @@ ul {
 	border-left-width: 1px;
 }
 
-li {
-	display:flex;
-	align-items: strech;
-	margin-bottom: 20px;
-	width:95%;
-	height: 200px;
-	background-color: #F5F6CE;
+.delBtn {
+	background-color: red;
+	font-family: Folks-Normal;
+	font-size: 18pt;
+	color: white;
+	width: 100px;
 }
+
+.sButton {
+	margin-top: 10px;
+	width: 70px;
+	font-family: Folks-Normal;
+	font-size: 16pt;
+}
+

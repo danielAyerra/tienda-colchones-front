@@ -18,7 +18,9 @@ import { Validators } from '@angular/forms';
  *				  Pagination
  */
 export class MattressListComponent implements OnInit {
- 
+  isAdmin: boolean = false;
+  page = 1;
+  pageSize = 5;
 
   constructor( private productService: ProductService,
                private userService: UserService,
@@ -39,6 +41,7 @@ export class MattressListComponent implements OnInit {
   ngOnInit() {
   	//TODO: Call the Service
     this.getList('Mattress');
+    this.checkAdmin();
   }
 
   getList(type:string){
@@ -47,10 +50,10 @@ export class MattressListComponent implements OnInit {
         const response = value.body;
         if(Array.isArray(response)&&Array.length>0){
           for(let resP of response){
-            const iProduct: Product = {
-              description: resP.description.toString(),
-              id: resP.id.toString(),
-              img: resP.img.toString(),
+            const iProduct = {
+              description: resP.description,
+              id: resP.id,
+              img: resP.img,
               prize: +resP.prize,
             }
             this.mattressList.push(iProduct);
@@ -104,8 +107,12 @@ export class MattressListComponent implements OnInit {
 
   checkAdmin(){
     this.userService.checkAdmin().subscribe(
-      (val) => console.log(val),
-      (err) => console.log(err)
+      (val) => 
+        {
+          this.isAdmin=val.body.message;
+          console.log(this.isAdmin);
+        },
+      (err) => {console.log(err);}
     );
   }
 

@@ -19,7 +19,9 @@ import { Validators } from '@angular/forms';
  *				Pagination
  */
 export class BedBaseListComponent implements OnInit {
-  isAdmin:boolean;
+  isAdmin:boolean = false;
+  page = 2;
+  pageSize =5;
 
   constructor( private productService: ProductService,
                private userService: UserService,
@@ -40,8 +42,7 @@ export class BedBaseListComponent implements OnInit {
   ngOnInit() {
   	//TODO: Call the Service
     this.checkAdmin();
-    this.getList('BedBase');
-    
+    this.getList('BedBase');    
   }
 
   getList(type:string) {
@@ -80,10 +81,14 @@ export class BedBaseListComponent implements OnInit {
       }
     );
   }
+  
   checkAdmin(){
     this.userService.checkAdmin().subscribe(
-      (val) => console.log(val),
-      (err) => console.log(err)
+      (val) => 
+        {this.isAdmin=val.body.message;
+          console.log(this.isAdmin);
+        },
+      (err) => {console.log(err);}
     );
   }
 
