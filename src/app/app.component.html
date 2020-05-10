@@ -10,11 +10,11 @@
       <a class="sidea" routerLink="/somieres">Somieres</a>
     </li>
     <!--For now, bool for login-->
-    <li class="sideli">
+    <li class="sideli" *ngIf="!cookieExist">
       <a class="sidea" routerLink="/login">Login</a>
     </li>
     <!--Need for logout. Pending of JWT feature-->
-    <li class="sideli">
+    <li class="sideli" *ngIf="cookieExist">
       <a class="sidea" routerLink="/" (click)="logOut()">Logout</a>
     </li> 
   </ul>
@@ -24,5 +24,5 @@
   <label>Expertos en tu descanso</label>
 </header>
 <main class="fluffy">
-  <router-outlet></router-outlet>
+  <router-outlet (activate)="onRouterOutletActivate()"></router-outlet>
 </main>

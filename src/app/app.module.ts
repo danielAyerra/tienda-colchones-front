@@ -5,7 +5,7 @@ import { HttpClientModule }    from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { BedBaseComponent } from './product/bed-base/bed-base.component';
 import { MattressComponent } from './product/mattress/mattress.component';
@@ -33,7 +33,8 @@ import { LoginComponent } from './user/login/login.component';
     AppRoutingModule,
     HttpClientModule,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   bootstrap: [AppComponent]
 })

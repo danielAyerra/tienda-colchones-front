@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import * as Cookie from 'js-cookie';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -19,9 +20,24 @@ import * as Cookie from 'js-cookie';
  */
 
 export class AppComponent {
-  constructor(){}
-  title = 'Weinman';
+  constructor(
+  	private router:Router
+    ){}
+  title: string = 'Weinman';
+  cookieExist: boolean=false;
+
   logOut(): void {
     Cookie.remove('Authorization');
+    this.router.navigateByUrl('/', { skipLocationChange: true })
+        .then(() => {
+          this.router.navigate(['/']);
+        }); 
+  }
+
+  onRouterOutletActivate(): void {
+  	if(Cookie.get('Authorization')!=undefined){
+  		console.log(Cookie.get('Authorization'));
+  		this.cookieExist=true;
+  	}
   }
 }
