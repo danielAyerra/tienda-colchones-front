@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Product } from '../product/interfaces/product';
 import { FeaturedProduct } from '../product/interfaces/featured.product';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, share } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
@@ -16,7 +16,7 @@ export class ProductService {
   		private http: HttpClient
   		) { }
 
-  	private commonUrl = environment.apiUrl;
+  	private commonUrl = `${environment.apiUrl}/product`;
 
   	//INSECURE. Node server should be giving these header values ONLY if client is in an allowed domain.
   	//Fixed!
@@ -32,7 +32,8 @@ export class ProductService {
 
   		return this.http.delete<any>(url, this.httpOptions).pipe(
     		tap(_ => console.log(`deleted ${type} id=${id}`)),
-    		catchError(err => (of(`Error: ${err}`)))
+    		catchError(err => (of(`Error: ${err}`))),
+    		share()
   		);
 	}
 
@@ -40,9 +41,10 @@ export class ProductService {
 		const id = product.id;
 		const url = `${this.commonUrl}/${type}/${id}`;
 
-		return this.http.put<any>(url, product, this.httpOptions).pipe(
+		return this.http.post<any>(url, product, this.httpOptions).pipe(
 			tap(_ => console.log(`added ${type} id=${id}`)),
-			catchError(err => (of(`Error: ${err}`)))
+			catchError(err => (of(`Error: ${err}`))),
+			share()
 		);
 	}
 
@@ -50,9 +52,10 @@ export class ProductService {
 		const id = product.id;
 		const url = `${this.commonUrl}/${type}/${id}`;
 
-		return this.http.post<any>(url, product, this.httpOptions).pipe(
+		return this.http.put<any>(url, product, this.httpOptions).pipe(
 			tap(_ => console.log(`edited ${type} id=${id}`)),
-			catchError(err => (of(`Error: ${err}`)))
+			catchError(err => (of(`Error: ${err}`))),
+			share()
 		);
 	}
 
@@ -60,7 +63,8 @@ export class ProductService {
 		const url = `${this.commonUrl}/${type}`;
 
 		return this.http.get<any>(url, this.httpOptions).pipe(
-			tap(_ => console.log(`List of ${type}`)),
+			tap(_ =>console.log(`List of ${type}`)
+		    ),
 			catchError(err => (of(`Error: ${err}`)))
 		);	
 	}
@@ -74,7 +78,7 @@ export class ProductService {
 	}
 
 	featured(): Observable<any> {
-		const url = `${this.commonUrl}/dashboard`;
+		const url = `${environment.apiUrl}/dashboard`;
 
 		return this.http.get<any>(url, this.httpOptions).pipe(
 			tap(val => {console.log('Showing most featured'); console.log(val);}),

@@ -4,14 +4,13 @@
 <ul>
 	<li *ngFor="let p of prodList">
 		<div class="imgDiv">
-			<img src="assets/img/feather.jpg" height="200" width="200" alt="Image not found"/>
+			<img src="{{p.img}}" height="200" width="200" alt="Image not found"/>
 		</div>
 		<div class="contentDiv">
-			<a [routerLink]="p.type==='BedBase' ? ['somieres/'+p.id] : ['colchones/'+p.id]">
+			<a [routerLink]="p.pType==='BedBase' ? ['somieres/'+p.id] : ['colchones/'+p.id]">
 				<h4>{{p.id}}</h4></a>
 			<h5>{{p.prize}}€</h5>
-			<h5 *ngIf="p.type==='BedBase'; else mattressBlock" id="somieres">Somier</h5>
-			<p>{{p.description}}</p>
+			<h5 *ngIf="p.pType==='BedBase'; else mattressBlock" id="somieres">Somier</h5>
 		</div>
 	</li>
 </ul>

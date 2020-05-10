@@ -14,7 +14,7 @@ export class UserService {
     private http: HttpClient
     ) { }
 
-  private baseUrl = environment.apiUrl;
+  private commonUrl = `${environment.apiUrl}/user`;
 
   httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*', 
@@ -24,7 +24,7 @@ export class UserService {
   };
 
   login (user: string, pass: string): Observable<any> {
-    const url = `${this.baseUrl}/login`;
+    const url = `${this.commonUrl}/login`;
     const userInfo = {user: user, pass: pass};
   	return this.http.post<any>(url, userInfo, this.httpOptions).pipe(
 			tap(message => console.log("Login done:")),
@@ -33,18 +33,10 @@ export class UserService {
   }
 
   checkAdmin (): Observable<any> {
-    const url = `${this.baseUrl}/checkAdmin`;
+    const url = `${this.commonUrl}/checkAdmin`;
   	return this.http.get<any>(url, this.httpOptions).pipe(
 			tap(message => console.log(message)),
 			catchError(err => (of(`Error: ${err}`)))
-		);
-  }
-
-  changePass (pass: string, newPass: string): Observable<any> {
-    const url = `${this.baseUrl}/pass`;
-  	return this.http.put<any>(url, this.httpOptions).pipe(
-  			tap(_ => console.log(`Succesfully changed password`)),
-  			catchError(err => (of(`Error: ${err}`)))
 		);
   }
 

@@ -3,5 +3,5 @@ export interface FeaturedProduct {
 	prize: number,
 	url: string,
 	description: string,
-	type: string
+	pType: string
 }
