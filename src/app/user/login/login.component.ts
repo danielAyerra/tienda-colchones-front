@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,13 +13,14 @@ import { Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
 	userForm = this.fb.group({
-    	user: ['Usuario', Validators.required],
+    	user: ['', Validators.required],
     	pass: ['', Validators.required]
   	});
 
   constructor(
   	private userService: UserService,
   	private fb: FormBuilder,
+    private router: Router
   	) { }
 
   ngOnInit() {
@@ -29,8 +31,9 @@ export class LoginComponent implements OnInit {
   	const pass = this.userForm.value.pass;
   	this.userService.login(user, pass).subscribe(
   		(ans)=>{
-  			if(ans.body.res===true){
+  			if(ans.body && ans.body.res===true){
   				console.log('log ok');
+          this.router.navigate(['']);
   			}
   			else{
   				console.log('log wrong');
