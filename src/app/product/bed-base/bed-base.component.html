@@ -1,17 +1,18 @@
 <div *ngIf="bedBase; else notFound">
-	<h2>{{bedBase.id}}</h2>
+	<h2 class="title">{{bedBase.id}}</h2>
 	<!--TODO: src-data descargada de MOngo-->
-	<img src="{{bedBase.img}}" width="500" height="500">
-	<span>{{bedBase.prize}}</span>
-	<p>{{bedBase.description}}</p>
+	<img class="content" src="{{bedBase.img}}" width="500" height="500" alt="No image found">
+	<span class="content">{{bedBase.prize}} €</span>
+	<p class="content">{{bedBase.description}}</p>
 </div>
 
-<div *ngIf="bedBase">
+<div class="edit" *ngIf="isAdmin">
+	<span>Edición de producto</span>
 	<input type="text" [(ngModel)]=bedBase.id>
 	<input type="text" [(ngModel)]=bedBase.prize>
 	<textarea rows="10" cols="50" [(ngModel)]=bedBase.description></textarea>
 </div>
-<div>
+<div class="btn-div" *ngIf="isAdmin">
 	<button (click)="editProduct()">Editar</button>
 	<button (click)="deleteProduct()">Eliminar</button>
 </div>

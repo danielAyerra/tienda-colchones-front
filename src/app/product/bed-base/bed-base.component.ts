@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../interfaces/product';
 import { ProductService } from '../../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-bed-base',
@@ -15,17 +16,19 @@ import { ActivatedRoute, Router } from '@angular/router';
  *@description Shows the information of a BedBase Element
  */
 export class BedBaseComponent implements OnInit {
-
+  isAdmin: boolean=false;
   bedBase: Product;
 
   constructor(private productService: ProductService, 
     private route: ActivatedRoute, 
-    private router: Router) { }
+    private router: Router,
+    private userService: UserService) { }
 
   ngOnInit() {
   	const type = "BedBase";
   	const id = this.route.snapshot.paramMap.get('id');
   	this.getProduct(type, id);
+    this.checkAdmin();
   }
 
   getProduct(type: string, id: string){
@@ -42,6 +45,16 @@ export class BedBaseComponent implements OnInit {
   			console.log(err);
   		}
 	);
+  }
+
+  checkAdmin(){
+    this.userService.checkAdmin().subscribe(
+      (val) => 
+        {this.isAdmin=val.body.message;
+          console.log(this.isAdmin);
+        },
+      (err) => {console.log(err);}
+    );
   }
 
   editProduct(){

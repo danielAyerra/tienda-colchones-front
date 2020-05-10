@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../interfaces/product';
 import { ProductService } from '../../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-mattress',
@@ -12,14 +13,18 @@ export class MattressComponent implements OnInit {
 
   constructor(private productService: ProductService, 
     private route: ActivatedRoute,
-    private router: Router) { }
-
+    private router: Router,
+    private userService: UserService) { }
+  
+  isAdmin: boolean=false
   mattress: Product;
 
   ngOnInit() {
   	const type = "Mattress";
   	const id = this.route.snapshot.paramMap.get('id');
   	this.getProduct(type, id);
+    this.checkAdmin();
+
   }
 
   getProduct(type: string, id: string){
@@ -46,6 +51,16 @@ export class MattressComponent implements OnInit {
       (err)=>{
         console.log(err);
       }
+    );
+  }
+
+  checkAdmin(){
+    this.userService.checkAdmin().subscribe(
+      (val) => 
+        {this.isAdmin=val.body.message;
+          console.log(this.isAdmin);
+        },
+      (err) => {console.log(err);}
     );
   }
 
