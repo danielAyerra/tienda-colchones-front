@@ -10,6 +10,11 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * @title         Product service
+ * @description   Product information related service
+ **/
 export class ProductService {
 
   	constructor(
@@ -18,15 +23,16 @@ export class ProductService {
 
   	private commonUrl = `${environment.apiUrl}/product`;
 
-  	//INSECURE. Node server should be giving these header values ONLY if client is in an allowed domain.
-  	//Fixed!
-	  httpOptions = {
+  	// In order to retrieve the cookie from the response, it is necessary to retrieve the 
+  	// whole response instead of only the body.  
+	httpOptions = {
 	      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*', 
 	        'Access-Control-Allow-Credentials': 'true', 'Access-Control-Expose-Headers':'true'}),
 	      withCredentials: true,
 	      observe: 'response' as 'response'
-	  };
+	};
 
+	// Sends a delete request of a product with an existing type and id
 	deleteProduct(id: string, type: string ): Observable<any> {
 		const url = `${this.commonUrl}/${type}/${id}`;
 
@@ -37,6 +43,7 @@ export class ProductService {
   		);
 	}
 
+	// Sends a product with a type and id for addition to database
 	addProduct(product: Product, type: string): Observable<any> {
 		const id = product.id;
 		const url = `${this.commonUrl}/${type}/${id}`;
@@ -48,6 +55,7 @@ export class ProductService {
 		);
 	}
 
+	// Sends information for editing an existing product in database
 	editProduct(product: Product, type: string): Observable<any> {
 		const id = product.id;
 		const url = `${this.commonUrl}/${type}/${id}`;
@@ -59,6 +67,7 @@ export class ProductService {
 		);
 	}
 
+	// Retrieves a list of all the products with specified type
 	listProduct(type: string): Observable<any> {
 		const url = `${this.commonUrl}/${type}`;
 
@@ -69,6 +78,7 @@ export class ProductService {
 		);	
 	}
 
+	// Gets a product with specified type and id
 	getProduct(type:string, id:string): Observable<any> {
 		const url = `${this.commonUrl}/${type}/${id}`;
 		return this.http.get<any>(url, this.httpOptions).pipe(
@@ -77,6 +87,8 @@ export class ProductService {
 		);	
 	}
 
+	// Gets a list of the most featured products. Filtering depends
+	// on back server.
 	featured(): Observable<any> {
 		const url = `${environment.apiUrl}/dashboard`;
 

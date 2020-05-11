@@ -9,6 +9,16 @@ import { UserService } from '../../services/user.service';
   templateUrl: './mattress.component.html',
   styleUrls: ['./mattress.component.less']
 })
+
+/**
+ * @title            Mattress
+ * @description      Shows the information of a Mattress Element.
+ *                   In case the user has administrator priviledges,
+ *                   it is also posible to edit and delete the product.
+ *
+ * @param isAdmin    Result of checking the token parameter "isAdmin" at the back
+ * @param mattress   Element for show.
+ */
 export class MattressComponent implements OnInit {
 
   constructor(private productService: ProductService, 
@@ -19,6 +29,13 @@ export class MattressComponent implements OnInit {
   isAdmin: boolean=false
   mattress: Product;
 
+  /**
+   * Gets the product id from URL and requests for
+   * product information.
+   * 
+   * It also checks (if there is any token) if the 
+   * token used has admin priviledges
+   **/
   ngOnInit() {
   	const type = "Mattress";
   	const id = this.route.snapshot.paramMap.get('id');
@@ -27,6 +44,10 @@ export class MattressComponent implements OnInit {
 
   }
 
+  /**
+   * Function calling for database object. Logs error if an error
+   * happens sending or receiving info.
+   **/
   getProduct(type: string, id: string){
   	this.productService.getProduct(type, id).subscribe(
   		(value) => {
@@ -43,6 +64,11 @@ export class MattressComponent implements OnInit {
 	  );
   }
 
+  /**
+   * Sends data of the new product content. It is not posible to change
+   * the id or the picture within the product.
+   * Logs error if an error happens sending or receiving info.
+   */
   editProduct(){
     this.productService.editProduct(this.mattress, 'Mattress').subscribe(
       (val)=>{
@@ -54,6 +80,10 @@ export class MattressComponent implements OnInit {
     );
   }
 
+  /**
+   * Function calling to back, for retrieving info from the cookie. 
+   * Logs error if an error happens sending or receiving info.
+   **/
   checkAdmin(){
     this.userService.checkAdmin().subscribe(
       (val) => 
@@ -64,6 +94,10 @@ export class MattressComponent implements OnInit {
     );
   }
 
+  /**
+   * Sends a request for product deletion and navigates to @type list URL.
+   * Logs error if an error happens sending or receiving info.
+   **/
   deleteProduct(){
     this.productService.deleteProduct(this.mattress.id, 'Mattress').subscribe(
       (ok) => {

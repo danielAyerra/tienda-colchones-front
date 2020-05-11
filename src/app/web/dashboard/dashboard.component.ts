@@ -7,6 +7,11 @@ import { ProductService } from '../../services/product.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.less']
 })
+
+/**
+ * @title:        Dashboard
+ * @description:  Shows the most featured products
+ **/
 export class DashboardComponent implements OnInit {
 
   constructor( private productService: ProductService ) { }

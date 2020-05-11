@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+/*@dev Generates a new administrator's password*/
 @Component({
   selector: 'app-password',
   templateUrl: './password.component.html',

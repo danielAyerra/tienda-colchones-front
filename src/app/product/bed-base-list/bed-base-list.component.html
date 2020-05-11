@@ -1,6 +1,9 @@
 <div class="title">
 	<h2>Somieres</h2>
 </div>
+
+<!-- Unordered list for showing the products instead of table.
+	 At less file, change tr and td for ul and li elements.-->
 <!--<ul>
 	<li *ngFor="let p of bedBaseList">
 		<div class="imgDiv">
@@ -14,6 +17,7 @@
 	</li>
 </ul>-->
 
+<div *ngIf="bedBaseList!==[]">
  <table>
      <tr *ngFor="let p of bedBaseList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
        <td>
@@ -30,6 +34,7 @@
   </table>
   <ngb-pagination [collectionSize]="bedBaseList.length" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true">
   </ngb-pagination>
+</div>
 
 <div *ngIf="isAdmin">
 	<form [formGroup]="productForm" (ngSubmit)=addElement()>
@@ -49,4 +54,4 @@
 		<button type="submit" [disabled]="!productForm.valid" class="sButton" (click)="addElement()">Añadir</button>
 	</form>
 </div>
-<!--TODO: Pagination!-->
+<!--TODO: Pagination is not working properly-->

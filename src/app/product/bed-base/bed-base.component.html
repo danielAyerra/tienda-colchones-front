@@ -1,11 +1,12 @@
+<!--If the product exist, it is shown-->
 <div *ngIf="bedBase; else notFound">
 	<h2 class="title">{{bedBase.id}}</h2>
-	<!--TODO: src-data descargada de MOngo-->
 	<img class="content" src="{{bedBase.img}}" width="500" height="500" alt="No image found">
 	<span class="content">{{bedBase.prize}} €</span>
 	<p class="content">{{bedBase.description}}</p>
 </div>
 
+<!--Administrator features-->
 <div class="edit" *ngIf="isAdmin">
 	<span>Edición de producto</span>
 	<input type="text" [(ngModel)]=bedBase.id>
@@ -16,6 +17,8 @@
 	<button (click)="editProduct()">Editar</button>
 	<button (click)="deleteProduct()">Eliminar</button>
 </div>
+
+<!--Message in case the product does not exist-->
 <ng-template #notFound>
 	<span class="notFound">No existe el producto consultado.</span>
 </ng-template>

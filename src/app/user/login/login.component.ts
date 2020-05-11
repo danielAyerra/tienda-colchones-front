@@ -10,6 +10,14 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.less']
 })
+
+/**
+ * @title            Login
+ * @description      Logs in a user. If successful, navigates to main page
+ *                   and a token is received in a cookie.
+ *
+ * @dev              If not a valid log in, it should show an error message.
+ */
 export class LoginComponent implements OnInit {
 
 	userForm = this.fb.group({
@@ -26,6 +34,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  // If the form is fulfilled, retrieves the data and sends it.
+  // If the response is ok, navigates to main page.
   login(){
   	const user = this.userForm.value.user;
   	const pass = this.userForm.value.pass;

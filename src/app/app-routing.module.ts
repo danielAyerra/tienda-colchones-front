@@ -9,8 +9,12 @@ import { PasswordComponent } from './user/password/password.component';
 import { LoginComponent } from './user/login/login.component';
 
 /**
-* @title: Route List
-* @dev: Add guards, stop using retrieve route.
+* @title: 		Route List
+* @dev: 		No guards are needed for now, since any user can
+*      			access any page of the app.
+*				
+*				Retrieve component is not functional.			
+*
 * @description: Application routing module
 */
 const routes: Routes = [

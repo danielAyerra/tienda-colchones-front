@@ -1,11 +1,12 @@
+<!--If the product exist, it is shown-->
 <div class="content" *ngIf="mattress; else notFound">
 	<h2 class="title">{{mattress.id}}</h2>
-	<!--TODO: src-data descargada de Mongo-->
 	<img class="content" src="{{mattress.img}}" alt="No image found" width="500" height="500">
 	<span class="content">{{mattress.prize}} €</span>
 	<p class="content">{{mattress.description}}</p>
 </div>
 
+<!--Administrator features-->
 <div class="edit" *ngIf="isAdmin">
 	<span>Edición de producto</span>
 	<input type="text" [(ngModel)]=mattress.id>
@@ -16,6 +17,8 @@
 	<button (click)="editProduct()">Editar</button>
 	<button (click)="deleteProduct()">Eliminar</button>
 </div>
+
+<!--Message in case the product does not exist-->
 <ng-template #notFound>
 	<span class="notFound">No existe el producto consultado.</span>
 </ng-template>

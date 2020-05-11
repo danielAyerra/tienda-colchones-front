@@ -11,9 +11,13 @@ import { UserService } from '../../services/user.service';
 })
 
 /**
- *@title Bed base
- *@dev Receives the id and shows the information of this ID
- *@description Shows the information of a BedBase Element
+ * @title            Bed base
+ * @description      Shows the information of a BedBase Element.
+ *                   In case the user has administrator priviledges,
+ *                   it is also posible to edit and delete the product.
+ *
+ * @param isAdmin    Result of checking the token parameter "isAdmin" at the back
+ * @param bedBase    Element for show.
  */
 export class BedBaseComponent implements OnInit {
   isAdmin: boolean=false;
@@ -24,6 +28,13 @@ export class BedBaseComponent implements OnInit {
     private router: Router,
     private userService: UserService) { }
 
+  /**
+   * Gets the product id from URL and requests for
+   * product information.
+   * 
+   * It also checks (if there is any token) if the 
+   * token used has admin priviledges
+   **/
   ngOnInit() {
   	const type = "BedBase";
   	const id = this.route.snapshot.paramMap.get('id');
@@ -31,6 +42,10 @@ export class BedBaseComponent implements OnInit {
     this.checkAdmin();
   }
 
+  /**
+   * Function calling for database object. Logs error if an error
+   * happens sending or receiving info.
+   **/
   getProduct(type: string, id: string){
   	this.productService.getProduct(type, id).subscribe(
   		(value) => {
@@ -47,6 +62,10 @@ export class BedBaseComponent implements OnInit {
 	);
   }
 
+  /**
+   * Function calling to back, for retrieving info from the cookie. 
+   * Logs error if an error happens sending or receiving info.
+   **/
   checkAdmin(){
     this.userService.checkAdmin().subscribe(
       (val) => 
@@ -57,6 +76,11 @@ export class BedBaseComponent implements OnInit {
     );
   }
 
+  /**
+   * Sends data of the new product content. It is not posible to change
+   * the id or the picture within the product.
+   * Logs error if an error happens sending or receiving info.
+   */
   editProduct(){
     this.productService.editProduct(this.bedBase, 'BedBase').subscribe(
       (val)=>{
@@ -68,6 +92,10 @@ export class BedBaseComponent implements OnInit {
     );
   }
 
+  /**
+   * Sends a request for product deletion and navigates to @type list URL.
+   * Logs error if an error happens sending or receiving info.
+   **/
   deleteProduct(){
     this.productService.deleteProduct(this.bedBase.id, 'BedBase').subscribe(
       (ok) => {

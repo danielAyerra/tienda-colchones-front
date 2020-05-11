@@ -8,6 +8,10 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 
+/**
+ * @title         User service
+ * @description   User information related service
+ **/
 export class UserService {
 
   constructor(
@@ -16,6 +20,8 @@ export class UserService {
 
   private commonUrl = `${environment.apiUrl}/user`;
 
+  // In order to retrieve the cookie from the response, it is necessary to retrieve the 
+  // whole response instead of only the body.
   httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*', 
         'Access-Control-Allow-Credentials': 'true', 'Access-Control-Expose-Headers':'true'}),
@@ -23,6 +29,7 @@ export class UserService {
       observe: 'response' as 'response'
   };
 
+  // If the information is correct, returns the JWT token in a cookie
   login (user: string, pass: string): Observable<any> {
     const url = `${this.commonUrl}/login`;
     const userInfo = {user: user, pass: pass};
@@ -32,6 +39,7 @@ export class UserService {
 		);
   }
 
+  // Requests if a cookie has "isAdmin" feature
   checkAdmin (): Observable<any> {
     const url = `${this.commonUrl}/checkAdmin`;
   	return this.http.get<any>(url, this.httpOptions).pipe(

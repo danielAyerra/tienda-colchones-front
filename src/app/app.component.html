@@ -9,11 +9,11 @@
     <li class="sideli"> 
       <a class="sidea" routerLink="/somieres">Somieres</a>
     </li>
-    <!--For now, bool for login-->
+    <!--If there is no cookie, no user is logged in-->
     <li class="sideli" *ngIf="!cookieExist">
       <a class="sidea" routerLink="/login">Login</a>
     </li>
-    <!--Need for logout. Pending of JWT feature-->
+    <!--If cookie exist, user is logged. Thus, this link is shown-->
     <li class="sideli" *ngIf="cookieExist">
       <a class="sidea" routerLink="/" (click)="logOut()">Logout</a>
     </li> 

@@ -13,9 +13,13 @@ import { Validators } from '@angular/forms';
 })
 
 /**
- *@title: 		MatressList 
- *@dev: 		Delete demo and call the service.
- *				  Pagination
+ * @title         MattressList 
+ * @description   Shows all the Mattress products stored in
+ *                the database.
+ *                If user has administrator priviledges, it
+ *                is posible to delete and add elements.
+ * @param         bedBaseList List of products retrieved from
+ *                db.
  */
 export class MattressListComponent implements OnInit {
   isAdmin: boolean = false;
@@ -31,6 +35,11 @@ export class MattressListComponent implements OnInit {
 
   imgUpload: File = null;
 
+  /**
+   * Form Control. Since img is a File, the control of
+   * this element is done manually
+   **/
+   
   productForm = this.fb.group({
     id: ['', Validators.required],
     prize: ['', Validators.min(0.01)],
@@ -38,12 +47,21 @@ export class MattressListComponent implements OnInit {
     description: ['',Validators.required]
   });
 
+  /* 
+   * Gets the product list.
+   * 
+   * It also checks (if there is any token) if the 
+   * token used has admin priviledges.
+   */
   ngOnInit() {
-  	//TODO: Call the Service
     this.getList('Mattress');
     this.checkAdmin();
   }
 
+  /*
+   * Checks the response, and in case it is a product list,
+   * the products are treated for show and added to the list.
+   */
   getList(type:string){
     this.productService.listProduct(type).subscribe(
       (value) => {
@@ -66,6 +84,10 @@ export class MattressListComponent implements OnInit {
     );
   }
 
+  /*
+   * Deletes a product from the list and refreshes the content.
+   * A DELETE request is sent for deletion form database.
+   */
   deleteElement(id: string){
     this.productService.deleteProduct(id,'Mattress').subscribe(
       (ok) => {
@@ -80,6 +102,10 @@ export class MattressListComponent implements OnInit {
       }
     );
   }
+
+  /**
+   * Gets information from the form and sends it to the back for product creation.
+   **/
   addElement(){
     const id = this.productForm.value.id;
     const prize = this.productForm.value.prize;
@@ -105,6 +131,10 @@ export class MattressListComponent implements OnInit {
     }
   }
 
+  /**
+   * Function calling to back, for retrieving info from the cookie. 
+   * Logs error if an error happens sending or receiving info.
+   **/
   checkAdmin(){
     this.userService.checkAdmin().subscribe(
       (val) => 
@@ -116,6 +146,10 @@ export class MattressListComponent implements OnInit {
     );
   }
 
+  /**
+   * If there is a picture, convert it to base64 string and prepare it 
+   * for database upload.
+   **/
   async onFileChange(event: FileList) {
     if(event){
       const item: any = await this.readUploadedFileAsBase64(event.item(0));
@@ -125,6 +159,10 @@ export class MattressListComponent implements OnInit {
     }
   }
 
+  /**
+   * File reader. Reads the file to upload or aborts if there is no image
+   * or the file has no valid format (png or jpeg).
+   **/
   private readUploadedFileAsBase64 = (inputFile) => {
     const temporaryFileReader = new FileReader();
     return new Promise((resolve, reject) => {
